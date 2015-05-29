@@ -17,3 +17,5 @@ Some conventions to work on it:
 * Add descriptive commits messages in English to every commit
 * Write code and comments in English
 * Use REST routes
+
+Santiago Ladavaz - Jorge Flores - Camila Garcia
