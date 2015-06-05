@@ -9,6 +9,7 @@ class JobOffer
   property :created_on, Date
   property :updated_on, Date
   property :is_active, Boolean, :default => true
+  property :expired_date, Date
 	belongs_to :user
 
 	validates_presence_of :title

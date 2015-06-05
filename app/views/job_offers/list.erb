@@ -12,9 +12,11 @@
 		<th>Title</th>
 		<th>Location</th>
 		<th>Description</th>
+		<th>Expired Date</th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
+	  <% if offer.expired_date > Date.today %>
 
 	<tr>
 		<td>
@@ -25,11 +27,15 @@
 		</td>
 		<td>
 			<%= offer.description %>
+		</td>
+		<td>
+			<%= offer.expired_date %>
 		</td>		
 		<td>
 			<%= link_to 'Apply', url_for(:job_offers, :apply, :offer_id => offer.id), :class => "btn btn-primary" %>
 		</td>		
 	</tr>
+		<%end%>
 
   <% end %>
 

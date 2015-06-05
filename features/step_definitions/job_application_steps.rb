@@ -4,6 +4,7 @@ Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
   @job_offer.title = job_title
   @job_offer.location = 'a nice job'
   @job_offer.description = 'a nice job'
+  @job_offer.expired_date = Date.today + 30
   @job_offer.save
 end
 
