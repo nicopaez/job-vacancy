@@ -1,3 +1,5 @@
+require_relative '../exceptions/InvalidDateException.rb'
+
 class JobOffer
 	include DataMapper::Resource
 
@@ -50,6 +52,9 @@ class JobOffer
 	end
 
 	def refresh(date)
+		if (date < Date.today)
+			raise InvalidDateException
+		end
 		self.is_active = true
 		self.updated_on = date
 		self.save
