@@ -15,7 +15,7 @@
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
-	  <% if offer.expired_date > Date.today %>
+	  <% if offer.expired_date >= Date.today %>
 
 	<tr>
 		<td>
