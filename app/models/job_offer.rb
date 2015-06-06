@@ -49,4 +49,10 @@ class JobOffer
 		self.is_active = false
 	end
 
+	def refresh(date)
+		self.is_active = true
+		self.updated_on = date
+		self.save
+	end
+
 end

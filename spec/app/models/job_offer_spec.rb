@@ -56,6 +56,24 @@ describe JobOffer do
 			expect(today_offer.is_active).to eq true
 		end
 	end
+
+
+
+	describe 'publish old offers ' do
+		let(:old_offer) do
+			old_offer = JobOffer.new
+			old_offer.title = "new title"
+			old_offer.updated_on = Date.today - 30
+			old_offer.save
+			old_offer
+		end
+
+		it 'should activate the offer when the given date it is valid' do
+			old_offer.refresh(Date.today)
+			expect(old_offer.is_active).to eq true
+		end
+
+	end
 	
 
 end
