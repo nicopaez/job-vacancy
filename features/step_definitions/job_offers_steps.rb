@@ -51,6 +51,7 @@ end
 
 Given(/^I set title to "(.*?)"$/) do |new_title|
   fill_in('job_offer[title]', :with => new_title)
+  fill_in('job_offer_expired_date', :with => '30/10/2020')
 end
 
 Given(/^I save the modification$/) do

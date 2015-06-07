@@ -51,7 +51,7 @@ class JobOffer
 		self.is_active = false
 	end
 
-	def refresh(date)
+	def refreshDate(date)
 		if (date < Date.today)
 			raise InvalidDateException
 		end
