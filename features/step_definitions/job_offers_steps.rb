@@ -23,10 +23,18 @@ When(/^confirm the new offer$/) do
   click_button('Create')
 end
 
+When(/^I fill the expired date with "(.*?)"$/) do |date|
+  fill_in('job_offer[expired_date]', :with => (Date.parse date))
+end
 
 Then(/^I should see (\d+) days plus actual day in expired date in My Offers$/) do |arg1|
   visit '/job_offers/my'
   page.should have_content(Date.today + arg1.to_i)
+end
+
+Then(/^I should see "(.*?)" in expired date in My Offers$/) do |date|
+  visit '/job_offers/my'
+  page.should have_content(Date.parse date)
 end
 
 Then(/^I should see "(.*?)" in My Offers$/) do |content|
