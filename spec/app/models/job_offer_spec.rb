@@ -74,7 +74,11 @@ describe JobOffer do
 			expect(old_offer.is_active).to eq true
 		end
 
-		
+		it 'should raise an invalid date error when the given date is wrong' do
+			expect { old_offer.refresh( (Date.today - 5))
+		}.to raise_error(InvalidDateException)
+		end
+
 	end
 	
 
