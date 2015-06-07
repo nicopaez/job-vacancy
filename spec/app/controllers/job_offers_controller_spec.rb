@@ -24,7 +24,7 @@ describe "JobOffersController" do
 			JobVacancy::App.any_instance.stub(:current_user).and_return(current_user)
 			JobOffer.any_instance.stub(:save).and_return(true)
 			TwitterClient.should_receive(:publish)
-			post '/job_offers/create', { :job_offer => {:title => 'Programmer offer' } , :create_and_twit => 'create_and_twit' }
+			post '/job_offers/create', { :job_offer => {:title => 'Programmer offer', :expired_date => Date.today } , :create_and_twit => 'create_and_twit' }
 			last_response.location.should == 'http://example.org/job_offers/my'
 		end
 
@@ -32,7 +32,7 @@ describe "JobOffersController" do
 			JobVacancy::App.any_instance.stub(:current_user).and_return(current_user)
 			JobOffer.any_instance.stub(:save).and_return(true)
 			TwitterClient.should_not_receive(:publish)
-			post '/job_offers/create', { :job_offer => {:title => 'Programmer offer' } }
+			post '/job_offers/create', { :job_offer => {:title => 'Programmer offer', :expired_date => Date.today } }
 			last_response.location.should == 'http://example.org/job_offers/my'
 		end
 

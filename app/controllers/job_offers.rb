@@ -50,17 +50,24 @@ JobVacancy::App.controllers :job_offers do
 
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
-    @job_offer.owner = current_user
-    if @job_offer.save
-      if params['create_and_twit']
-        TwitterClient.publish(@job_offer)
+    begin
+      param = params[:job_offer]
+      date = param[:expired_date].to_datetime
+      @job_offer.owner = current_user
+      if @job_offer.save
+        if params['create_and_twit']
+          TwitterClient.publish(@job_offer)
+        end
+        flash[:success] = 'Offer created'
+        redirect '/job_offers/my'
+      else
+        flash.now[:error] = 'Title is mandatory'
+        render 'job_offers/new'
       end
-      flash[:success] = 'Offer created'
-      redirect '/job_offers/my'
-    else
-      flash.now[:error] = 'Title is mandatory'
-      render 'job_offers/new'
-    end  
+      rescue Exception => e
+        flash.now[:error] = 'Invalid date'
+        render 'job_offers/new'
+      end  
   end
 
   post :update, :with => :offer_id do
@@ -76,8 +83,8 @@ JobVacancy::App.controllers :job_offers do
         flash.now[:error] = 'Title is mandatory'
         render 'job_offers/edit'
       end
-    rescue InvalidDateException => e
-      flash.now[:error] = e.message
+    rescue Exception => e
+      flash.now[:error] = 'Invalid date'
       render 'job_offers/edit'
     end
   end
