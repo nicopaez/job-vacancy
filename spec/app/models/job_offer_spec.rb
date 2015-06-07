@@ -70,15 +70,17 @@ describe JobOffer do
 		end
 
 		it 'should activate the offer when the given date it is valid' do
-			old_offer.refresh(Date.today)
+			old_offer.refreshDate(Date.today)
 			expect(old_offer.is_active).to eq true
 		end
 
 		it 'should raise an invalid date error when the given date is wrong' do
-			expect { old_offer.refresh( (Date.today - 5))
+			expect { old_offer.refreshDate( (Date.today - 5))
 		}.to raise_error(InvalidDateException)
 		end
 
+	end
+	
 	describe 'create job offer' do
 		let(:old_offer) do
 			old_offer = JobOffer.new
@@ -91,7 +93,5 @@ describe JobOffer do
 			expect(old_offer.expired_date).to eq Date.today + 30
 		end
 	end
- 
- end
 
 end

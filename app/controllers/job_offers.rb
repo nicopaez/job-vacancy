@@ -65,14 +65,21 @@ JobVacancy::App.controllers :job_offers do
 
   post :update, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    @job_offer.update(params[:job_offer])
-    if @job_offer.save
-      flash[:success] = 'Offer updated'
-      redirect '/job_offers/my'
-    else
-      flash.now[:error] = 'Title is mandatory'
+    begin
+      param = params[:job_offer]
+      @job_offer.refreshDate(param[:expired_date].to_datetime)
+      @job_offer.update(params[:job_offer])
+      if @job_offer.save
+        flash[:success] = 'Offer updated'
+        redirect '/job_offers/my'
+      else
+        flash.now[:error] = 'Title is mandatory'
+        render 'job_offers/edit'
+      end
+    rescue InvalidDateException => e
+      flash.now[:error] = e.message
       render 'job_offers/edit'
-    end  
+    end
   end
 
   put :activate, :with => :offer_id do
