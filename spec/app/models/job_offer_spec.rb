@@ -78,7 +78,20 @@ describe JobOffer do
 			expect { old_offer.refresh( (Date.today - 5))
 		}.to raise_error(InvalidDateException)
 		end
+
+	describe 'create job offer' do
+		let(:old_offer) do
+			old_offer = JobOffer.new
+			old_offer.title = "new title"
+			old_offer.save
+			old_offer
+		end
+
+		it'should expired date be 30 days plus today' do
+			expect(old_offer.expired_date).to eq Date.today + 30
+		end
 	end
-	
+ 
+ end
 
 end

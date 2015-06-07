@@ -23,6 +23,12 @@ When(/^confirm the new offer$/) do
   click_button('Create')
 end
 
+
+Then(/^I should see (\d+) days plus actual day in expired date in My Offers$/) do |arg1|
+  visit '/job_offers/my'
+  page.should have_content(Date.today + arg1.to_i)
+end
+
 Then(/^I should see "(.*?)" in My Offers$/) do |content|
 	visit '/job_offers/my'
   page.should have_content(content)
