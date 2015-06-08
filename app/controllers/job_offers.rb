@@ -1,14 +1,14 @@
 JobVacancy::App.controllers :job_offers do
-  
+
   get :my do
     @offers = JobOffer.find_by_owner(current_user)
     render 'job_offers/my_offers'
-  end    
+  end
 
   get :index do
     @offers = JobOffer.all_active
     render 'job_offers/list'
-  end  
+  end
 
   get :new do
     @job_offer = JobOffer.new
@@ -20,13 +20,13 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/list'
   end
 
-  get :edit, :with =>:offer_id  do
+  get :edit, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
     # ToDo: validate the current user is the owner of the offer
     render 'job_offers/edit'
   end
 
-  get :apply, :with =>:offer_id  do
+  get :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
     @job_application = JobApplication.new
     # ToDo: validate the current user is the owner of the offer
@@ -40,7 +40,7 @@ JobVacancy::App.controllers :job_offers do
 
 
   post :apply, :with => :offer_id do
-    @job_offer = JobOffer.get(params[:offer_id])    
+    @job_offer = JobOffer.get(params[:offer_id])
     applicant_email = params[:job_application][:applicant_email]
     @job_application = JobApplication.create_for(applicant_email, @job_offer)
     @job_application.process
@@ -69,10 +69,10 @@ JobVacancy::App.controllers :job_offers do
         @job_offer.expired_date = ''
         render 'job_offers/new'
       end
-      rescue Exception => e
-        flash.now[:error] = 'Invalid date'
-        render 'job_offers/new'
-      end  
+    rescue Exception => e
+      flash.now[:error] = 'Invalid date'
+      render 'job_offers/new'
+    end
   end
 
   post :update, :with => :offer_id do
@@ -103,7 +103,7 @@ JobVacancy::App.controllers :job_offers do
     else
       flash.now[:error] = 'Operation failed'
       redirect '/job_offers/my'
-    end  
+    end
   end
 
   delete :destroy do
