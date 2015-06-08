@@ -62,13 +62,16 @@ class JobOffer
     self.save
   end
 
-
   def self.enumerate_equal_titles(list_of_offers)
     titles = Hash.new 0
 
     list_of_offers.each do
     |offer|
-      titles[offer.title] = titles[offer.title] + 1
+      an_offer_title = titles[offer.title]
+      another_offer_title = titles[offer.title]
+      if an_offer_title.eql? another_offer_title || equal_without_spaces?(an_offer_title, another_offer_title)
+        titles[offer.title] = titles[offer.title] + 1
+      end
     end
 
     list_of_offers.each do
@@ -81,4 +84,9 @@ class JobOffer
     end
   end
 
+  def self.equal_without_spaces?(a_title, another_title)
+    a_title.delete(' ').eql? another_title.delete(' ')
+  end
+
 end
+
