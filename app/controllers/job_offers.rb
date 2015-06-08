@@ -53,7 +53,10 @@ JobVacancy::App.controllers :job_offers do
     begin
       param = params[:job_offer]
       date = param[:expired_date].to_datetime
-      @job_offer.refreshDate(date)
+      /@job_offer.refreshDate(date)/
+      if @job_offer.expired_date.nil? 
+        @job_offer.expired_date = Date.today + 30
+      end
       @job_offer.owner = current_user
       if @job_offer.save
         if params['create_and_twit']
@@ -63,6 +66,7 @@ JobVacancy::App.controllers :job_offers do
         redirect '/job_offers/my'
       else
         flash.now[:error] = 'Title is mandatory'
+        @job_offer.expired_date = ''
         render 'job_offers/new'
       end
       rescue Exception => e
