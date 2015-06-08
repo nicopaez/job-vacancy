@@ -124,6 +124,13 @@ describe JobOffer do
       expect(offers[1].title).to eq("P r o g r a m m e r Vacancy - #2")
     end
 
+    it 'should add an - #2 at the end of the newest repeated title even though it has uppercase words' do
+      another_offer = JobOffer.create(title: 'PROGRAMMER Vacancy', user: camila, created_on: (Date.today))
+      offers = JobOffer.all_active
+      expect(offers[0].title).to eq("Programmer Vacancy")
+      expect(offers[1].title).to eq("PROGRAMMER Vacancy - #2")
+    end
+
 
 
   end

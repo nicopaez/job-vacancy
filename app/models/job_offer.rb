@@ -70,7 +70,7 @@ class JobOffer
     list_of_offers.each do
     |offer|
       exist = false
-      clean_offer = offer.title.delete(' ')
+      clean_offer = offer.title.delete(' ').downcase
       
       
       titles.each_key do
