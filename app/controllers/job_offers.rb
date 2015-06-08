@@ -53,10 +53,14 @@ JobVacancy::App.controllers :job_offers do
     begin
       param = params[:job_offer]
       date = param[:expired_date].to_datetime
-      /@job_offer.refreshDate(date)/
+      
       if @job_offer.expired_date.nil? 
         @job_offer.expired_date = Date.today + 30
+        date = @job_offer.expired_date
       end
+
+      @job_offer.refreshDate(date)
+
       @job_offer.owner = current_user
       if @job_offer.save
         if params['create_and_twit']
