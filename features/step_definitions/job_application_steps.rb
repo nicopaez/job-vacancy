@@ -18,6 +18,11 @@ When(/^I apply$/) do
   click_button('Apply')
 end
 
+When(/^I apply to an offer$/) do
+  click_link('Apply', match: :first)
+end
+
+
 Then(/^I should receive a mail with offerer info$/) do
   mail_store = "#{Padrino.root}/tmp/emails"
   file = File.open("#{mail_store}/applicant@test.com", "r")
@@ -27,4 +32,8 @@ Then(/^I should receive a mail with offerer info$/) do
   content.include?(@job_offer.description).should be true
   content.include?(@job_offer.owner.email).should be true
   content.include?(@job_offer.owner.name).should be true
+end
+
+Then(/^I should see "(.*?)" field$/) do |field|
+  page.should have_content(field)
 end
