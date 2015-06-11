@@ -37,3 +37,17 @@ end
 Then(/^I should see "(.*?)" field$/) do |field|
   page.should have_content(field)
 end
+
+
+Given(/^I don't fill mandatory field$/) do
+  fill_in('job_application[applicant_email]', :with => '')
+end
+
+Given(/^I confirm$/) do
+  click_button('Apply')
+end
+
+Then(/^I should see error message$/) do
+  page.should have_content('Complete mandatory fields')
+end
+

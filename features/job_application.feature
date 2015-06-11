@@ -19,3 +19,10 @@ Feature: Job Application
     And I should see "Salary expectations" field
     And I should see "Applicant email" field
     And I should see "Link to cv" field
+
+
+  Scenario: Don´t fill mandatory field
+    When I apply to an offer
+    And I don't fill mandatory field
+    And I confirm 
+    Then I should see error message
