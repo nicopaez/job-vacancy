@@ -14,3 +14,4 @@ Then(/^I should see the title "(.*?)"$/) do |arg1|
   visit 'job_offers/my'
   page.should have_content(title)
 end
+

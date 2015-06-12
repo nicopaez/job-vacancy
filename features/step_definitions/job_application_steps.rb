@@ -40,10 +40,10 @@ end
 
 
 Given(/^I don't fill mandatory field$/) do
-fill_in('job_offer_applicant[link_to_cv]', :with => 'dropbox.com')
+  fill_in('job_offer_applicant[link_to_cv]', :with => 'dropbox.com')
   fill_in('job_offer_applicant[applicant_email]', :with => '')
   fill_in('job_offer_applicant[name]', :with => '')
-  fill_in('job_offer_applicant[last_name]', :with => '')
+  fill_in('job_offer_applicant[applicant_email]', :with => '')
 end
 
 Given(/^I confirm$/) do
