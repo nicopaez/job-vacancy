@@ -27,8 +27,10 @@ JobVacancy::App.controllers :job_offers do
   end
 
   get :apply, :with => :offer_id do
+
     @job_offer = JobOffer.get(params[:offer_id])
-    @job_application = JobApplication.new
+    @job_offer_applicant = JobOfferApplicant.new
+
     # ToDo: validate the current user is the owner of the offer
     render 'job_offers/apply'
   end
@@ -41,18 +43,22 @@ JobVacancy::App.controllers :job_offers do
 
   post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    applicant_email = params[:job_application][:applicant_email]
-    
-    if applicant_email == ''
+
+    @job_offer_applicant = JobOfferApplicant.new(params[:job_offer_applicant])
+
+    applicant_name = params[:job_offer_applicant][:name]
+    applicant_last_name = params[:job_offer_applicant][:last_name]
+    applicant_email = params[:job_offer_applicant][:applicant_email]
+    @job_offer_applicant.offer_id = @job_offer.id
+
+    if applicant_email == '' || applicant_last_name == '' || applicant_name == ''
       flash[:error] = "Complete mandatory fields"
       redirect "job_offers/apply/" + params[:offer_id].to_s
-      
     else
       @job_application = JobApplication.create_for(applicant_email, @job_offer)
       @job_application.process
       flash[:success] = 'Contact information sent.'
       redirect '/job_offers'
-
     end
 
   end

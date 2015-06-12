@@ -1,3 +1,4 @@
+@wip
 Feature: Image in "Is active" column 
 
 Background:

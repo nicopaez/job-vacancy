@@ -1,6 +1,6 @@
-migration 9, :create_job_offer_applicant do
+migration 9, :create_job_offer_applicants do
   up do
-    create_table :job_offer_applicant do
+    create_table :job_offer_applicants do
       column :id, Integer, :serial => true
       column :name, DataMapper::Property::String, :length => 255
       column :last_name, DataMapper::Property::String, :length => 255
@@ -11,6 +11,6 @@ migration 9, :create_job_offer_applicant do
   end
 
   down do
-    drop_table :job_offer_applicant
+    drop_table :job_offer_applicants
   end
 end

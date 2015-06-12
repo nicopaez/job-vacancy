@@ -1,8 +1,7 @@
 <h1>Job Application</h1>
 
-	
 <p>Please enter your email address to receive the contanct information for this offer.</p>
-<% form_for(@job_application, "/job_offers/apply/#{@job_offer.id}") do |f| %>
+<% form_for(@job_offer_applicant, "/job_offers/apply/#{@job_offer.id}") do |f| %>
 
   <%= f.label :name %>
   <%= f.text_field :name %>

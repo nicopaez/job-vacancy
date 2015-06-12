@@ -13,8 +13,8 @@ Given(/^I access the offers list page$/) do
 end
 
 When(/^I apply$/) do
-  click_link('Apply', match: :first)
-  fill_in('job_application[applicant_email]', :with => 'applicant@test.com')
+  click_link('Apply')
+  fill_in('job_offer_applicant[applicant_email]', :with => 'applicant@test.com')
   click_button('Apply')
 end
 
@@ -40,7 +40,10 @@ end
 
 
 Given(/^I don't fill mandatory field$/) do
-  fill_in('job_application[applicant_email]', :with => '')
+fill_in('job_offer_applicant[link_to_cv]', :with => 'dropbox.com')
+  fill_in('job_offer_applicant[applicant_email]', :with => '')
+  fill_in('job_offer_applicant[name]', :with => '')
+  fill_in('job_offer_applicant[last_name]', :with => '')
 end
 
 Given(/^I confirm$/) do
@@ -50,4 +53,3 @@ end
 Then(/^I should see error message$/) do
   page.should have_content('Complete mandatory fields')
 end
-
