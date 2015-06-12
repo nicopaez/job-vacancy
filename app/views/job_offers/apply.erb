@@ -3,17 +3,19 @@
 <p>Please enter your email address to receive the contanct information for this offer.</p>
 <% form_for(@job_offer_applicant, "/job_offers/apply/#{@job_offer.id}") do |f| %>
 
-  <%= f.label :name %>
+
+  <p>Name   <span class="label label-warning">Require</span></p>
   <%= f.text_field :name %>
-  <%= f.label :last_name %>
+  <p>Last name   <span class="label label-warning">Require</span></p>
   <%= f.text_field :last_name %>
+  <p>Email   <span class="label label-warning">Require</span></p>
+  <%= f.text_field :applicant_email %>
   <%= f.label :salary_expectations %>
   <%= f.text_field :salary_expectations %>
-  <%= f.label :applicant_email %>
-  <%= f.text_field :applicant_email %>
-   <%= f.label :link_to_cv %>
+  <%= f.label :link_to_cv%>
   <%= f.text_field :link_to_cv %>
-	<hr/>
+
+  <hr/>
   <%= f.submit "Apply", :class => "btn btn-primary" %>
   <%= link_to 'Cancel', url_for(:job_offers, :latest), :class => "btn btn-secondary" %>
 <% end %>
