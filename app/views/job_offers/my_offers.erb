@@ -24,7 +24,11 @@
 			<%= offer.expired_date%>
 		</td>		
 		<td>
-			<%= offer.is_active %>
+			<% if offer.expired_date < Date.today %>
+				<div align="center"> <span class="icon-ok"></span></div>
+			<%else %>
+				<div align="center"><span class="icon-remove"></span></div>
+			<% end %>
 		</td>		
 
 		<td>
