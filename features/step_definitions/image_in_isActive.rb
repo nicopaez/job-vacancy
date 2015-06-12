@@ -1,5 +1,4 @@
 When(/^I am logged as an user\.$/) do
-  JobOffer.all.destroy
   visit '/login'
   fill_in('user[email]', :with => 'offerer@test.com')
   fill_in('user[password]', :with => 'Passw0rd!')
