@@ -1,5 +1,4 @@
 When(/^I am logged as an user\.$/) do
-  JobOffer.all.destroy
   visit '/login'
   fill_in('user[email]', :with => 'offerer@test.com')
   fill_in('user[password]', :with => 'Passw0rd!')
@@ -11,18 +10,23 @@ When(/^i go to my offers$/) do
 end
 
 When(/^i have an expired offer$/) do
-  visit '/job_offers/new'
-  fill_in('job_offer[title]', :with => 'Expired Offer')
-  click_button('Create')
-  job = JobOffer.first(:title => 'Expired Offer')
-  job.expired_date = Date.today - 3
-  job.save
+  @job_offer = JobOffer.new
+  @job_offer.owner = User.first
+  @job_offer.title = 'Title'
+  @job_offer.location = 'Expired Offer'
+  @job_offer.description = 'Expired Offer'
+  @job_offer.expired_date = Date.today - 3
+  @job_offer.save
 end
 
 When(/^i have a valid offer$/) do
-  visit '/job_offers/new'
-  fill_in('job_offer[title]', :with => 'Valid Job')
-  click_button('Create')
+  @job_offer = JobOffer.new
+  @job_offer.owner = User.first
+  @job_offer.title = 'Title'
+  @job_offer.location = 'Valid Offer'
+  @job_offer.description = 'Valid Offer'
+  @job_offer.expired_date = Date.today + 30
+  @job_offer.save
 end
 
 Given(/^an active offer$/) do
