@@ -88,10 +88,6 @@ describe JobOffer do
       old_offer
     end
 
-    it 'should expired date be 30 days plus today' do
-      expect(old_offer.expired_date).to eq Date.today + 30
-    end
-
     it 'should expired date be 12-12-2015' do
       old_offer.expired_date = Date.new(2015, 12, 12)
       expect(old_offer.expired_date).to eq Date.parse '12-12-2015'
