@@ -1,4 +1,5 @@
 Given(/^only a "(.*?)" offer exists in the offers list$/) do | job_title |
+  JobOffer.all.destroy
   @job_offer = JobOffer.new
   @job_offer.owner = User.first
   @job_offer.title = job_title

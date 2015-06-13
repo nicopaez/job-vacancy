@@ -19,14 +19,31 @@ When(/^i have an expired offer$/) do
 end
 
 When(/^i have a valid offer$/) do
+ visit '/job_offers/new'
+ fill_in('job_offer[title]', :with => 'Valid Offer')
+ click_button('Create')
+ @job2 = JobOffer.first(:title => 'Valid Offer')
+ @job2.expired_date = Date.today + 30
+ @job2.save
 end
 
 Given(/^an active offer$/) do
+  visit('/job_offers/my')
   @cssAttributeCheck = page.find('span[class="icon-ok"]')['class']
 end
 
-
 Then(/^i should see a check image$/) do
   @cssAttributeCheck.should eq 'icon-ok'
+  @job2.destroy
+end
+
+Given(/^an expired offer$/) do
+  visit('/job_offers/my')
+  @cssAttributeCross = page.find('span[class="icon-remove"]')['class']
+end
+
+Then(/^i should see a cross image$/) do
+  @cssAttributeCross.should eq 'icon-remove'
   @job.destroy
 end
+

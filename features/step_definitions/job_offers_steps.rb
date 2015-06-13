@@ -72,13 +72,6 @@ Given(/^I save the modification$/) do
   click_button('Save')
 end
 
-Given(/^an expired offer$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^i should see a cross image$/) do
-  pending # express the regexp above with the code you wish you had
-end
 
 Given(/^an offer with the title "(.*?)" created by me$/) do |arg1|
   pending # express the regexp above with the code you wish you had
