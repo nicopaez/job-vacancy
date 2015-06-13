@@ -34,3 +34,15 @@ Feature: Job Offers CRUD
     Given I delete it
     Then I should see "Offer deleted"
     And I should not see "Programmer vacancy!!!" in My Offers
+
+  @wip
+  Scenario: Can't apply to my own offers
+    Given an offer with the title "Programmer vacancy" created by me
+    Given I access the job offers page
+    Then I shouldn't see the "Apply" button on offers I created
+
+  @wip
+  Scenario: I can apply to offers which are not mine
+    Given an offer with the title "Programmer vacancy"
+    Given I access the job offers page
+    Then I should see the "Apply" button on offers I created
