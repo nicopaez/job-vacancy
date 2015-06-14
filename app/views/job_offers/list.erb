@@ -26,10 +26,14 @@
 		</td>
 		<td>
 			<%= offer.description %>
-		</td>		
+		</td>
+
 		<td>
-			<%= link_to 'Apply', url_for(:job_offers, :apply, :offer_id => offer.id), :class => "btn btn-primary" %>
-		</td>		
+          <% @user = session[:current_user]%>
+		  <% if @user != offer.owner.id %>
+              <%= link_to 'Apply', url_for(:job_offers, :apply, :offer_id => offer.id), :class => "btn btn-primary" %>
+		  <% end %>
+		</td>
 	</tr>
 		<%end%>
 
