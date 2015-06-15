@@ -4,17 +4,17 @@
 <% form_for(@job_offer_applicant, "/job_offers/apply/#{@job_offer.id}") do |f| %>
 
 
-  <p>Name   <span class="label label-warning">Require</span></p>
+  <p>Name   <span class="label label-warning">*</span></p>
   <%= f.text_field :name %>
-  <p>Last name   <span class="label label-warning">Require</span></p>
+  <p>Last name   <span class="label label-warning">*</span></p>
   <%= f.text_field :last_name %>
-  <p>Email   <span class="label label-warning">Require</span></p>
+  <p>Email   <span class="label label-warning">*</span></p>
   <%= f.text_field :applicant_email %>
   <%= f.label :salary_expectations %>
   <%= f.text_field :salary_expectations %>
   <%= f.label :link_to_cv%>
   <%= f.text_field :link_to_cv %>
-
+  <p><span class="label label-warning">*</span>  Mandatory Fields</p>
   <hr/>
   <%= f.submit "Apply", :class => "btn btn-primary" %>
   <%= link_to 'Cancel', url_for(:job_offers, :latest), :class => "btn btn-secondary" %>
