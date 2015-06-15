@@ -40,7 +40,6 @@ Feature: Job Offers CRUD
     Given I access the job offers page
     Then I shouldn't see the "Apply" button on offers I created
 
-  @wip
   Scenario: I can apply to offers which are not mine
     Given an offer with the title "Programmer vacancy"
     Given I access the job offers page

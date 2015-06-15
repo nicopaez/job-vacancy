@@ -89,5 +89,5 @@ Then(/^I shouldn't see the "(.*?)" button on offers I created$/) do |arg1|
 end
 
 Then(/^I should see the "(.*?)" button on offers I created$/) do |arg1|
-  pending
+  page.has_button?('Apply')
 end
