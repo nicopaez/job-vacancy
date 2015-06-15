@@ -73,18 +73,21 @@ Given(/^I save the modification$/) do
 end
 
 
-Given(/^an offer with the title "(.*?)" created by me$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Given(/^an offer with the title "(.*?)" created by me$/) do |title|
+  JobOffer.all.destroy
+  visit '/job_offers/new'
+  fill_in('job_offer[title]', :with => title)
+  click_button('Create')
 end
 
 Given(/^I access the job offers page$/) do
-  pending # express the regexp above with the code you wish you had
+  visit '/job_offers/latest'
 end
 
 Then(/^I shouldn't see the "(.*?)" button on offers I created$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+  page.has_no_button?('Apply')
 end
 
 Then(/^I should see the "(.*?)" button on offers I created$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+  pending
 end

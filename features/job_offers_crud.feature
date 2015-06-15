@@ -35,7 +35,6 @@ Feature: Job Offers CRUD
     Then I should see "Offer deleted"
     And I should not see "Programmer vacancy!!!" in My Offers
 
-  @wip
   Scenario: Can't apply to my own offers
     Given an offer with the title "Programmer vacancy" created by me
     Given I access the job offers page
