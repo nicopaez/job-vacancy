@@ -19,7 +19,7 @@ Feature: Search offers by description
   Scenario: An user looks up for an existing offer by title
     Given I write "Programmer" on the search bar and press search
     Then I should see the offer with title "Programmer"
-  @wip
+
   Scenario: An user looks up for a not existing offer by title
     Given I write "Tester" on the search bar and press search
     Then I should't see any offers with title "Tester"

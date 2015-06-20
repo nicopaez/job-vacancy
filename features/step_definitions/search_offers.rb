@@ -27,7 +27,8 @@ Then(/^I should see the offer with title "(.*?)"$/) do |title|
 end
 
 Then(/^I should't see any offers with title "(.*?)"$/) do |title|
-  pending
+  visit '/job_offers/latest'
+  page.has_no_content?(title)
 end
 
 
