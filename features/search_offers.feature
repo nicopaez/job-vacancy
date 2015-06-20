@@ -11,10 +11,10 @@ Feature: Search offers by description
   Scenario: An user looks up for an existing offer by the description
     Given I write "Good job" on the search bar and press search
     Then I should see the offer with description "Good job"
-  @wip
+
   Scenario: An user looks up for a not existing offer by the description
     Given I write "Excelent job" on the search bar and press search
-    Then I should't see any offers
+    Then I should't see any offers with description "Excelent job"
   @wip
   Scenario: An user looks up for an existing offer by title
     Given I write "Programmer" on the search bar and press search
@@ -22,4 +22,4 @@ Feature: Search offers by description
   @wip
   Scenario: An user looks up for a not existing offer by title
     Given I write "Tester" on the search bar and press search
-    Then I should't see any offers
+    Then I should't see any offers with title "Tester"

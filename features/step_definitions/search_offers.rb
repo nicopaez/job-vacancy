@@ -16,9 +16,15 @@ Then(/^I should see the offer with description "(.*?)"$/) do |description|
   page.has_content?(description)
 end
 
-Then(/^I should't see any offers$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^I should't see any offers with description "(.*?)"$/) do |description|
+  visit '/job_offers/latest'
+  page.has_no_content?(description)
 end
+
+Then(/^I should't see any offers with title "(.*?)"$/) do |title|
+  pending
+end
+
 
 Then(/^I should see the offer with title "(.*?)"$/) do |arg1|
   pending # express the regexp above with the code you wish you had
