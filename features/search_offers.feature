@@ -1,4 +1,4 @@
-@wip
+
 Feature: Search offers by description
   As an user
   I want to look up for offers by their title and description
@@ -11,15 +11,15 @@ Feature: Search offers by description
   Scenario: An user looks up for an existing offer by the description
     Given I write "Good job" on the search bar and press search
     Then I should see the offer with description "Good job"
-
+  @wip
   Scenario: An user looks up for a not existing offer by the description
     Given I write "Excelent job" on the search bar and press search
     Then I should't see any offers
-
+  @wip
   Scenario: An user looks up for an existing offer by title
     Given I write "Programmer" on the search bar and press search
     Then I should see the offer with title "Programmer"
-
+  @wip
   Scenario: An user looks up for a not existing offer by title
     Given I write "Tester" on the search bar and press search
     Then I should't see any offers
