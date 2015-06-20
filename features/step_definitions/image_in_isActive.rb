@@ -47,3 +47,12 @@ Then(/^i should see a cross image$/) do
   @job.destroy
 end
 
+
+Then(/^expiration date is highlighted with a green color in the view$/) do
+  page.find('font[color="green"]')['color'].should eq 'green'
+end
+
+Then(/^expiration date is highlighted with a red color in the view$/) do
+  page.find('font[color="red"]')['color'].should eq 'red'
+end
+

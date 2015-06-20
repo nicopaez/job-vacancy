@@ -22,7 +22,11 @@
 			<%= offer.description %>
 		</td>
 		<td>
-			<%= offer.expired_date%>
+			<% if offer.expired_date < Date.today %>
+				<font color="red"><%= offer.expired_date%></font>
+			<%else%>
+					<font color="green"><%= offer.expired_date%></font>
+			<%end%>
 		</td>		
 		<td>
 			<% if offer.expired_date < Date.today %>
