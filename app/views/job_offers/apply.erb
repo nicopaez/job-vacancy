@@ -8,9 +8,9 @@
   <%= f.text_field :name %>
   <p>Last name   <span class="label label-warning">*</span></p>
   <%= f.text_field :last_name %>
-  <p>Email   <span class="label label-warning">*</span></p>
-  <%= f.text_field :applicant_email %>
-  <%= f.label :salary_expectations %>
+    <p>Email   <span class="label label-warning">Require</span></p>
+    <%= f.text_field :applicant_email, :type =>"email"%>
+    <%= f.label :salary_expectations %>
   <%= f.text_field :salary_expectations %>
   <%= f.label :link_to_cv%>
   <%= f.text_field :link_to_cv %>
