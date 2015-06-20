@@ -11,6 +11,7 @@ class JobOffer
   property :created_on, Date
   property :updated_on, Date
   property :is_active, Boolean, :default => true
+  property :salary_expectation, Boolean
   property :expired_date, Date
   belongs_to :user
 

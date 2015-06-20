@@ -17,6 +17,8 @@ describe JobOffer do
     it { should respond_to(:updated_on) }
     it { should respond_to(:is_active) }
     it { should respond_to(:expired_date) }
+    it { should respond_to(:salary_expectation) }
+
 
   end
 
