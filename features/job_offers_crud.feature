@@ -26,6 +26,12 @@ Feature: Job Offers CRUD
     And an applicant apply
     Then I should see "Salary expectation"
 
+  Scenario: Create new offer without salary option
+    And I not check salary expectations
+    And confirm the new offer
+    And an applicant apply    
+    Then I should not see "Salary Expectation"
+
   Scenario: Update offer
     Given I have "Programmer vacancy" offer in My Offers
     And I edit it

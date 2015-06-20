@@ -3,6 +3,7 @@ When(/^I browse the default page$/) do
 end
 
 Given(/^I am logged in as job offerer$/) do
+  JobOffer.all.destroy
   visit '/login'
   fill_in('user[email]', :with => 'offerer@test.com')
   fill_in('user[password]', :with => 'Passw0rd!')
@@ -11,6 +12,7 @@ Given(/^I am logged in as job offerer$/) do
 end
 
 Given(/^I access the new offer page$/) do
+  JobOffer.all.destroy
   visit '/job_offers/new'
   page.should have_content('Title')
   page.should have_content('Salary')
@@ -40,6 +42,9 @@ When(/^an applicant apply$/) do
   click_link('Apply')
 end
 
+When(/^I not check salary expectations$/) do
+  uncheck('job_offer[salary_expectation]')
+end
 
 Given(/^I have "(.*?)" offer in My Offers$/) do |offer_title|
   JobOffer.all.destroy
@@ -79,12 +84,10 @@ end
 
 Then(/^I shouldn't see the "(.*?)" button on offers I created$/) do |arg1|
   page.has_no_button?('Apply')
-  JobOffer.all.destroy
 end
 
 Then(/^I should see the "(.*?)" button on offers I created$/) do |arg1|
   page.has_button?('Apply')
-  JobOffer.all.destroy
 end
 
 Then(/^I should see (\d+) days plus actual day in expired date in My Offers$/) do |arg1|
@@ -95,7 +98,6 @@ end
 Then(/^I should see "(.*?)" in expired date in My Offers$/) do |date|
   visit '/job_offers/my'
   page.should have_content(Date.parse date)
-  JobOffer.all.destroy
 end
 
 Then(/^I should see "(.*?)" in My Offers$/) do |content|
@@ -107,5 +109,4 @@ end
 Then(/^I should not see "(.*?)" in My Offers$/) do |content|
   visit '/job_offers/my'
   page.should_not have_content(content)
-  JobOffer.all.destroy
 end
