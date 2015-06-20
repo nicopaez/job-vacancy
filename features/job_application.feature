@@ -16,7 +16,6 @@ Feature: Job Application
     When I apply to an offer
     Then I should see "Name" field
     And I should see "Last name" field
-    And I should see "Salary expectations" field
     And I should see "Email" field
     And I should see "Link to cv" field
 

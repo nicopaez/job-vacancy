@@ -5,21 +5,26 @@ Feature: Job Offers CRUD
 
   Background:
   	Given I am logged in as job offerer
-
-  Scenario: Create new offer
-    Given I access the new offer page
+    And I access the new offer page
     When I fill the title with "Programmer vacancy"
+    
+    
+  Scenario: Create new offer
     And confirm the new offer    
     Then I should see "Offer created"
     And I should see "Programmer vacancy" in My Offers
     And I should see 30 days plus actual day in expired date in My Offers
 
   Scenario: Create new offer
-    Given I access the new offer page
-    When I fill the title with "Programmer vacancy"
     When I fill the expired date with "12-12-2015"
     And confirm the new offer    
     Then I should see "12-12-2015" in expired date in My Offers
+
+  Scenario: Create new offer with salary option
+    And I check salary expectations
+    And confirm the new offer
+    And an applicant apply
+    Then I should see "Salary expectation"
 
   Scenario: Update offer
     Given I have "Programmer vacancy" offer in My Offers

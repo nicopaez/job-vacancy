@@ -10,8 +10,10 @@
   <%= f.text_field :last_name %>
     <p>Email   <span class="label label-warning">Require</span></p>
     <%= f.text_field :applicant_email, :type =>"email"%>
-    <%= f.label :salary_expectations %>
-  <%= f.text_field :salary_expectations %>
+  <% if @job_offer.salary_expectation %>
+  	<%= f.label :salary_expectations %>
+  	<%= f.text_field :salary_expectations %>
+  <%end%>
   <%= f.label :link_to_cv%>
   <%= f.text_field :link_to_cv %>
   <p><span class="label label-warning">*</span>  Mandatory Fields</p>
