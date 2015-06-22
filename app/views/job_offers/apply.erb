@@ -8,7 +8,7 @@
   <%= f.text_field :name %>
   <p>Last name   <span class="label label-warning">*</span></p>
   <%= f.text_field :last_name %>
-    <p>Email   <span class="label label-warning">Require</span></p>
+    <p>Email   <span class="label label-warning">*</span></p>
     <%= f.text_field :applicant_email, :type =>"email"%>
   <% if @job_offer.salary_expectation %>
   	<%= f.label :salary_expectations %>
