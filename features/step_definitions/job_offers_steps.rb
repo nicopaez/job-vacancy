@@ -31,7 +31,7 @@ When(/^confirm the new offer$/) do
 end
 
 When(/^I fill the expired date with "(.*?)"$/) do |date|
-  fill_in('job_offer[expired_date]', :with => (Date.parse date))
+  fill_in('expired_date', :with => (Date.parse date))
 end
 
 
@@ -63,7 +63,7 @@ end
 
 Given(/^I set title to "(.*?)"$/) do |new_title|
   fill_in('job_offer[title]', :with => new_title)
-  fill_in('job_offer_expired_date', :with => '30/10/2020')
+  fill_in('expired_date', :with => '30/10/2020')
 end
 
 Given(/^I save the modification$/) do

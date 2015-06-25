@@ -32,7 +32,6 @@ Feature: Job Offers CRUD
     And an applicant apply    
     Then I should not see "Salary Expectation"
 
-  @wip
   Scenario: Update offer
     Given I have "Programmer vacancy" offer in My Offers
     And I edit it
