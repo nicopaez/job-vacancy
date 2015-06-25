@@ -1,3 +1,8 @@
+<%= javascript_include_tag '/assets/jquery-1.9.1' %>
+<%= javascript_include_tag '/assets/jquery-ui' %> 
+<%= stylesheet_link_tag '/assets/jquery-ui.css' %>
+
+
   <%= f.label :title %>
 	<%= f.text_field :title, :class => "input-block-level" %>
   <%= f.label :location %>
@@ -7,7 +12,14 @@
   <%= f.label 'Salary Expectation Option' %>
   <%= f.check_box :salary_expectation %>
   <%= f.label :expired_date %>
-  <%= f.text_field :expired_date, :class => "form-control", :placeholder => "YYYY-mm-dd" %>
+  <%= f.text_field :expired_date,:class => 'datepicker',:id => 'expired_date',:placeholder => 'dd/mm/yyyy'%>
+
+<script type="text/javascript">
+  $(document).ready(
+      $('.datepicker').datepicker({
+          dateFormat: 'dd/mm/yy'
+  }))
+</script>
   <p>If you don't complete expired date field it will be 30 days after today</p>
   
 
