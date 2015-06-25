@@ -7,7 +7,7 @@ Feature:  publish expired offers
   When accept the action
   Then "expiredOffer" is updated
 
- @wip
+ 
  Scenario: publish an expired jobs with an incorrect date
   Given an expired job named "expiredOffer"
   And an invalid date
