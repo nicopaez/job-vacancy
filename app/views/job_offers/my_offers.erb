@@ -5,6 +5,7 @@
 		<th>Location</th>
 		<th>Description</th>
 		<th>Expired Date</th>
+		<th>Visits</th>
 		<th>Is active</th>
 		<th>Applicants</th>
 		<th>Actions</th>
@@ -27,6 +28,9 @@
 			<%else%>
 					<font color="green"><%= offer.expired_date%></font>
 			<%end%>
+		</td>
+		<td>
+			<%= offer.visit_count %>
 		</td>		
 		<td>
 			<% if offer.expired_date < Date.today %>
