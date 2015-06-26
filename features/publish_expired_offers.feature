@@ -1,6 +1,6 @@
 Feature:  publish expired offers
  
- @wip
+ 
  Scenario: publish a selected expired offer
   Given an expired job named "expiredOffer" 
   And a post date
