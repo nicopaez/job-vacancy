@@ -133,5 +133,20 @@ describe JobOffer do
 
   end
 
+  describe 'visit counter' do
+    let(:camila) { User.create(name: 'Camila', password: '1234', email: 'camilagarcia.113@hotmail.com') }
+    let(:an_offer) { JobOffer.create(title: 'Programmer Vacancy', user: camila, created_on: (Date.today - 5)) }
+
+    it 'should be 0 visits when a job offer is created' do
+      expect(an_offer.visit_count).to eq 0
+    end
+
+    it 'should be one when a job offer is visited' do
+      an_offer.addVisit
+      expect(an_offer.visit_count).to eq 1
+    end
+
+  end
+
 
 end

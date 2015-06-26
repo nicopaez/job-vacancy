@@ -18,6 +18,10 @@ class JobOffer
 
   validates_presence_of :title
 
+  def addVisit
+    self.visit_count = visit_count + 1
+  end
+
   def owner
     user
   end
