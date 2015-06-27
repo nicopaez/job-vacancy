@@ -111,6 +111,7 @@ GEM
       thor (>= 0.14.6)
     guard-rspec (1.2.1)
       guard (>= 1.1)
+    hashie (3.4.2)
     hike (1.2.3)
     http (0.6.3)
       http_parser.rb (~> 0.6.0)
@@ -141,6 +142,15 @@ GEM
     naught (1.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    oauth (0.4.7)
+    omniauth (1.2.2)
+      hashie (>= 1.2, < 4)
+      rack (~> 1.0)
+    omniauth-linkedin (0.2.0)
+      omniauth-oauth (~> 1.0)
+    omniauth-oauth (1.1.0)
+      oauth
+      omniauth (~> 1.0)
     open4 (1.3.4)
     padrino (0.11.2)
       padrino-admin (= 0.11.2)
@@ -292,6 +302,8 @@ DEPENDENCIES
   guard
   guard-rspec
   json
+  omniauth
+  omniauth-linkedin
   padrino (= 0.11.2)
   padrino-sprockets
   rack-test
