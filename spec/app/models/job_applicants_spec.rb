@@ -39,6 +39,7 @@ describe JobOfferApplicant do
       applicant.name = 'Santi'
       applicant.last_name = 'Ladavaz'
       applicant.applicant_email = 'santi@hotmail.com'
+      applicant.salary_expectations = 123
       expect(applicant.save).to eq true
     end
   

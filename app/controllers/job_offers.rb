@@ -55,7 +55,7 @@ post :apply, :with => :offer_id do
     applicant_email = params[:job_offer_applicant][:applicant_email]
     @job_offer_applicant.offer_id = @job_offer.id
     
-    if @job_offer_applicant.salary_expectations == ''
+    if !@job_offer.salary_expectation
       @job_offer_applicant.salary_expectations = -1
     end
 

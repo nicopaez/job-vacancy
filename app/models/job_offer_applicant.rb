@@ -14,6 +14,7 @@ class JobOfferApplicant
   validates_presence_of :name
   validates_presence_of :last_name
   validates_presence_of :applicant_email
+  validates_presence_of :salary_expectations
 
 
   def offer
