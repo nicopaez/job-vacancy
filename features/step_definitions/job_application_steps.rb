@@ -18,6 +18,7 @@ When(/^I apply$/) do
   fill_in('job_offer_applicant[applicant_email]', :with => 'applicant@test.com')
   fill_in('job_offer_applicant[name]', :with => 'Santiago')
   fill_in('job_offer_applicant[last_name]', :with => 'Ladavaz')
+  fill_in('job_offer_applicant[link_to_cv]', :with => 'http://wwww.cv.com.ar')
   click_button('Apply')
 end
 
@@ -44,6 +45,7 @@ end
 
 Given(/^I don't fill mandatory field$/) do
   fill_in('job_offer_applicant[link_to_cv]', :with => 'dropbox.com')
+  fill_in('job_offer_applicant[link_to_cv]', :with => 'http://wwww.cv.com.ar')
   fill_in('job_offer_applicant[applicant_email]', :with => '')
   fill_in('job_offer_applicant[name]', :with => '')
   fill_in('job_offer_applicant[last_name]', :with => '')
