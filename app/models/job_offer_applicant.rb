@@ -1,3 +1,4 @@
+require 'uri'
 
 class JobOfferApplicant
   include DataMapper::Resource
@@ -28,5 +29,10 @@ class JobOfferApplicant
   def self.find_by_offer(offer)
     offers = JobOfferApplicant.all(:offer_id => offer)
   end
+
+  def url_valid?(url)
+    url = URI.parse(url) rescue false
+    url.kind_of?(URI::HTTP) || url.kind_of?(URI::HTTPS)
+  end 
 
 end

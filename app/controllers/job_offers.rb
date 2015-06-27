@@ -36,7 +36,6 @@ JobVacancy::App.controllers :job_offers do
     @job_offer.addVisit
     @job_offer.save
     @job_offer_applicant = JobOfferApplicant.new
-
     # ToDo: validate the current user is the owner of the offer
     render 'job_offers/apply'
   end
@@ -51,13 +50,18 @@ post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
 
     @job_offer_applicant = JobOfferApplicant.new(params[:job_offer_applicant])
-
     applicant_email = params[:job_offer_applicant][:applicant_email]
     @job_offer_applicant.offer_id = @job_offer.id
     
     if !@job_offer.salary_expectation
       @job_offer_applicant.salary_expectations = -1
     end
+
+    @link = @job_offer_applicant.link_to_cv
+    if !(@job_offer_applicant.url_valid?(@link)) || @link == '' 
+      flash[:error] = "Put valid Url"
+      redirect "job_offers/apply/" + params[:offer_id].to_s
+    end 
 
     if @job_offer_applicant.save
       @job_application = JobApplication.create_for(applicant_email, @job_offer)
