@@ -5,6 +5,9 @@ class User
   property :name, String
   property :crypted_password, String
   property :email, String
+  property :role, String
+  property :uid, String
+  property :provider, String
   has n, :job_offers
 
   validates_presence_of :name

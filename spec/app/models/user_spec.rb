@@ -11,6 +11,9 @@ describe User do
 		it { should respond_to( :crypted_password) }
 		it { should respond_to( :email ) }
 		it { should respond_to( :job_offers ) }
+		it { should respond_to( :role ) }
+		it { should respond_to( :uid ) }
+		it { should respond_to( :provider ) }
 
 	end
 
