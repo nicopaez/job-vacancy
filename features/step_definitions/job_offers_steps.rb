@@ -131,3 +131,23 @@ end
 Then(/^expiration date is highlighted with a green color in the view$/) do
   page.find('font[color="green"]')['color'].should eq 'green'
 end
+
+Given(/^an expired offer$/) do
+  visit '/job_offers/new'
+  fill_in('job_offer[title]', :with => 'Expired Offer')
+  click_button('Create')
+  @job = JobOffer.first(:title => 'Expired Offer')
+  @job.expired_date = Date.today - 3
+  @job.save
+  visit('/job_offers/my')
+  @cssAttributeCross = page.find('span[class="icon-remove"]')['class']
+end
+
+Then(/^i should see a cross image$/) do
+  @cssAttributeCross.should eq 'icon-remove'
+  @job.destroy
+end
+
+Then(/^expiration date is highlighted with a red color in the view$/) do
+  page.find('font[color="red"]')['color'].should eq 'red'
+end
