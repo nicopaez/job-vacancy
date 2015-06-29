@@ -110,3 +110,24 @@ Then(/^I should not see "(.*?)" in My Offers$/) do |content|
   visit '/job_offers/my'
   page.should_not have_content(content)
 end
+
+
+Given(/^an active offer$/) do
+  visit '/job_offers/new'
+  fill_in('job_offer[title]', :with => 'Valid Offer')
+  click_button('Create')
+  @job2 = JobOffer.first(:title => 'Valid Offer')
+  @job2.expired_date = Date.today + 30
+  @job2.save
+  visit('/job_offers/my')
+  @cssAttributeCheck = page.find('span[class="icon-ok"]')['class']
+end
+
+Then(/^i should see a check image$/) do
+  @cssAttributeCheck.should eq 'icon-ok'
+  @job2.destroy
+end
+
+Then(/^expiration date is highlighted with a green color in the view$/) do
+  page.find('font[color="green"]')['color'].should eq 'green'
+end

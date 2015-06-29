@@ -55,3 +55,14 @@ Feature: Job Offers CRUD
     Given an offer with the title "Programmer vacancy"
     Given I access the job offers page
     Then I should see the "Apply" button on offers I created
+ 
+  Scenario: check image it's seen and expiration date is highlighted in green
+    Given an active offer
+    Then expiration date is highlighted with a green color in the view
+    Then i should see a check image
+  
+  @wip
+  Scenario: Cross image it's seen And expiration date is highlighted in red
+    Given an expired offer
+    Then expiration date is highlighted with a red color in the view
+    Then i should see a cross image 
