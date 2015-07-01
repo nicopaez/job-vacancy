@@ -17,6 +17,7 @@ gem 'rake'
 #Gem to log in with LinkedIn
 gem 'omniauth'
 gem 'omniauth-linkedin'
+gem 'haml'
 
 # Component requirements
 gem 'slim'

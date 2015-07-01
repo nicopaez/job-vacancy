@@ -111,6 +111,8 @@ GEM
       thor (>= 0.14.6)
     guard-rspec (1.2.1)
       guard (>= 1.1)
+    haml (4.0.6)
+      tilt
     hashie (3.4.2)
     hike (1.2.3)
     http (0.6.3)
@@ -301,6 +303,7 @@ DEPENDENCIES
   erubis (~> 2.7.0)
   guard
   guard-rspec
+  haml
   json
   omniauth
   omniauth-linkedin
