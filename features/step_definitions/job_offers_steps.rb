@@ -123,12 +123,12 @@ Given(/^an active offer$/) do
   @cssAttributeCheck = page.find('span[class="icon-ok"]')['class']
 end
 
-Then(/^i should see a check image$/) do
+Then(/^I should see a check image$/) do
   @cssAttributeCheck.should eq 'icon-ok'
   @job2.destroy
 end
 
-Then(/^expiration date is highlighted with a green color in the view$/) do
+Then(/^expiration date is highlighted with green in the view$/) do
   page.find('font[color="green"]')['color'].should eq 'green'
 end
 
@@ -148,6 +148,6 @@ Then(/^i should see a cross image$/) do
   @job.destroy
 end
 
-Then(/^expiration date is highlighted with a red color in the view$/) do
+Then(/^expiration date is highlighted with red in the view$/) do
   page.find('font[color="red"]')['color'].should eq 'red'
 end

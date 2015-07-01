@@ -6,7 +6,6 @@ Feature: Job Application
   Background:
     Given only a "Web Programmer" offer exists in the offers list
     Given I access the offers list page
-    
 
   Scenario: Apply to job offer
     When I apply
@@ -18,7 +17,6 @@ Feature: Job Application
     And I should see "Last name" field
     And I should see "Email" field
     And I should see "Link to cv" field
-
 
   Scenario: Don´t fill mandatory field
     When I apply to an offer
