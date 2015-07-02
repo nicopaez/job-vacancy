@@ -56,26 +56,16 @@ post :apply, :with => :offer_id do
     if !@job_offer.salary_expectation
       @job_offer_applicant.salary_expectations = -1
     end
-
-    @link = @job_offer_applicant.link_to_cv
-    if !(@job_offer_applicant.url_valid?(@link)) || @link == '' 
-      flash[:error] = "Put valid Url"
-      redirect "job_offers/apply/" + params[:offer_id].to_s
-    end 
-
-    if @job_offer_applicant.save
+    
+    begin 
+      @job_offer_applicant.save
       @job_application = JobApplication.create_for(applicant_email, @job_offer)
       @job_application.process
       flash[:success] = 'Contact information sent.'
       redirect '/job_offers'
-    else
-     @job_offer_applicant.errors.keys.each do |key|
-      @job_offer_applicant.errors[key].each do |error|
-        puts "#{key} => #{error}"
-      end
-    end
-      flash[:error] = "Complete mandatory fields"
-      redirect "job_offers/apply/" + params[:offer_id].to_s
+    rescue DataMapper::SaveFailureError
+      display_errors_for @job_offer_applicant
+      render 'job_offers/apply'
     end
 
   end

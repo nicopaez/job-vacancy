@@ -56,5 +56,7 @@ Given(/^I confirm$/) do
 end
 
 Then(/^I should see error message$/) do
-  page.should have_content('Complete mandatory fields')
+  page.should have_content('Name is mandatory')
+  page.should have_content('Last Name is mandatory')
+  page.should have_content('Email is mandatory')
 end

@@ -21,25 +21,26 @@ describe JobOfferApplicant do
     let(:applicant) { JobOfferApplicant.new }
 
     it 'should be false when name is blank' do
-      expect(applicant.save).to eq false
+      expect{applicant.save}.to raise_error(DataMapper::SaveFailureError)
     end
 
     it 'should be false when last name is blank' do
       applicant.name = 'Santi'
-      expect(applicant.save).to eq false
+      expect{applicant.save}.to raise_error(DataMapper::SaveFailureError)
     end
 
     it 'should be false when email is blank' do
       applicant.name = 'Santi'
       applicant.last_name = 'Ladavaz'
-      expect(applicant.save).to eq false
+      expect{applicant.save}.to raise_error(DataMapper::SaveFailureError)
     end
 
-    it 'should be true when applicant has name,last name and email ' do
+    it 'should be true when applicant has name,last name,email and link ' do
       applicant.name = 'Santi'
       applicant.last_name = 'Ladavaz'
       applicant.applicant_email = 'santi@hotmail.com'
       applicant.salary_expectations = 123
+      applicant.link_to_cv = 'http://www.cv.com'
       expect(applicant.save).to eq true
     end
   
