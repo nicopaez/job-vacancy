@@ -1,4 +1,4 @@
-migration 9, :create_job_offer_applicants do
+migration 8, :create_job_offer_applicants do
   up do
     create_table :job_offer_applicants do
       column :id, Integer, :serial => true
