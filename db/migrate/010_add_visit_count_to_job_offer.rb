@@ -1,4 +1,4 @@
-migration 11, :add_visit_count_to_job_offers do
+migration 10, :add_visit_count_to_job_offers do
   up do
     modify_table :job_offers do
       add_column :visit_count, Integer
