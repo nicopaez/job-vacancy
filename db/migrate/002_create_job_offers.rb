@@ -5,7 +5,7 @@ migration 2, :create_job_offers do
       column :title, DataMapper::Property::String, :length => 255
       column :location, DataMapper::Property::String, :length => 255
       column :description, DataMapper::Property::String, :length => 255
-      column :salary_expectation, "Boolean"
+      column :salary_expectation, "BOOLEAN"
     end
   end
 
