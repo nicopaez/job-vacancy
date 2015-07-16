@@ -1,6 +1,6 @@
 Job Vacancy Application
 =======================
-
+[![Build Status](https://travis-ci.org/santiagoladavaz/job-vacancy.svg?branch=develop)](https://travis-ci.org/santiagoladavaz/job-vacancy)
 [![Build Status](https://snap-ci.com/nicopaez/job-vacancy/branch/develop/build_image)](https://snap-ci.com/nicopaez/job-vacancy/branch/develop)
 
 Once you have clone this repository, follow these steps to start working:
@@ -17,3 +17,6 @@ Some conventions to work on it:
 * Add descriptive commits messages in English to every commit
 * Write code and comments in English
 * Use REST routes
+
+___________________________________________________
+Santiago Ladavaz - Jorge Flores - Camila Garcia

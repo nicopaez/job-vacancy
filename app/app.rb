@@ -4,7 +4,7 @@ module JobVacancy
     register Padrino::Mailer
     register Padrino::Helpers
     register Padrino::Sprockets
-    #register Padrino::Admin::AccessControl
+    register Padrino::Admin::AccessControl
     sprockets :minify => (Padrino.env == :production)
 
     enable :sessions
@@ -12,6 +12,22 @@ module JobVacancy
     set :delivery_method, :file => {
       :location => "#{Padrino.root}/tmp/emails",
     }
+
+    use OmniAuth::Builder do
+      provider :linkedin,  '773ij72bnzb15m', 's9xpplQ5GrJWOUvm'
+    end
+
+    set :login_page, "/login" # determines the url login occurs
+
+    access_control.roles_for :any do |role|
+      role.protect "/profile"
+      role.protect "/admin" # here a demo path
+    end
+
+# now we add a role for users
+    access_control.roles_for :users do |role|
+      role.allow "/profile"
+    end
 
     ##
     # Caching support

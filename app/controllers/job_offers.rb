@@ -1,14 +1,14 @@
 JobVacancy::App.controllers :job_offers do
-  
+
   get :my do
     @offers = JobOffer.find_by_owner(current_user)
     render 'job_offers/my_offers'
-  end    
+  end
 
   get :index do
     @offers = JobOffer.all_active
     render 'job_offers/list'
-  end  
+  end
 
   get :new do
     @job_offer = JobOffer.new
@@ -20,59 +20,104 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/list'
   end
 
-  get :edit, :with =>:offer_id  do
+  get :edit, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
     # ToDo: validate the current user is the owner of the offer
     render 'job_offers/edit'
   end
 
-  get :apply, :with =>:offer_id  do
+  get :applicants, :with => :offer_id do
+    @applicants = JobOfferApplicant.find_by_offer(params[:offer_id])
+    render 'job_offers/applicants'
+  end
+
+  get :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    @job_application = JobApplication.new
+    @job_offer.addVisit
+    @job_offer.save
+    @job_offer_applicant = JobOfferApplicant.new
     # ToDo: validate the current user is the owner of the offer
     render 'job_offers/apply'
   end
 
   post :search do
-    @offers = JobOffer.all(:title.like => "%#{params[:q]}%")
+    @offers = JobOffer.all(:title.like => "%#{params[:q]}%") +
+              JobOffer.all(:description.like => "%#{params[:q]}%")
     render 'job_offers/list'
   end
 
+post :apply, :with => :offer_id do
+    @job_offer = JobOffer.get(params[:offer_id])
 
-  post :apply, :with => :offer_id do
-    @job_offer = JobOffer.get(params[:offer_id])    
-    applicant_email = params[:job_application][:applicant_email]
-    @job_application = JobApplication.create_for(applicant_email, @job_offer)
-    @job_application.process
-    flash[:success] = 'Contact information sent.'
-    redirect '/job_offers'
+    @job_offer_applicant = JobOfferApplicant.new(params[:job_offer_applicant])
+    applicant_email = params[:job_offer_applicant][:applicant_email]
+    @job_offer_applicant.offer_id = @job_offer.id
+    
+    if !@job_offer.salary_expectation
+      @job_offer_applicant.salary_expectations = -1
+    end
+    
+    begin 
+      @job_offer_applicant.save
+      @job_application = JobApplication.create_for(applicant_email, @job_offer)
+      @job_application.process
+      flash[:success] = 'Contact information sent.'
+      redirect '/job_offers'
+    rescue DataMapper::SaveFailureError
+      display_errors_for @job_offer_applicant
+      render 'job_offers/apply'
+    end
+
   end
 
   post :create do
     @job_offer = JobOffer.new(params[:job_offer])
-    @job_offer.owner = current_user
-    if @job_offer.save
-      if params['create_and_twit']
-        TwitterClient.publish(@job_offer)
+    begin
+      param = params[:job_offer]
+      date = param[:expired_date].to_datetime
+      
+      if @job_offer.expired_date.nil? 
+        @job_offer.expired_date = Date.today + 30
+        date = @job_offer.expired_date
       end
-      flash[:success] = 'Offer created'
-      redirect '/job_offers/my'
-    else
-      flash.now[:error] = 'Title is mandatory'
+
+      @job_offer.refreshDate(date)
+
+      @job_offer.owner = current_user
+      if @job_offer.save
+        if params['create_and_twit']
+          TwitterClient.publish(@job_offer)
+        end
+        flash[:success] = 'Offer created'
+        redirect '/job_offers/my'
+      else
+        flash.now[:error] = 'Title is mandatory'
+        @job_offer.expired_date = ''
+        render 'job_offers/new'
+      end
+    rescue Exception => e
+      flash.now[:error] = 'Invalid date'
       render 'job_offers/new'
-    end  
+    end
   end
 
   post :update, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
-    @job_offer.update(params[:job_offer])
-    if @job_offer.save
-      flash[:success] = 'Offer updated'
-      redirect '/job_offers/my'
-    else
-      flash.now[:error] = 'Title is mandatory'
+    begin
+      param = params[:job_offer]
+      @job_offer.refreshDate(param[:expired_date].to_datetime)
+      @job_offer.update(params[:job_offer])
+      if @job_offer.save
+        flash[:success] = 'Offer updated'
+        redirect '/job_offers/my'
+      else
+        flash.now[:error] = 'Title is mandatory'
+        render 'job_offers/edit'
+      end
+    rescue Exception => e
+      flash.now[:error] = 'Invalid date'
       render 'job_offers/edit'
-    end  
+    end
   end
 
   put :activate, :with => :offer_id do
@@ -84,7 +129,7 @@ JobVacancy::App.controllers :job_offers do
     else
       flash.now[:error] = 'Operation failed'
       redirect '/job_offers/my'
-    end  
+    end
   end
 
   delete :destroy do

@@ -11,7 +11,6 @@ describe User do
 		it { should respond_to( :crypted_password) }
 		it { should respond_to( :email ) }
 		it { should respond_to( :job_offers ) }
-
 	end
 
 	describe 'valid?' do

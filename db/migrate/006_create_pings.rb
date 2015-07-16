@@ -1,4 +1,4 @@
-migration 7, :create_pings do
+migration 6, :create_pings do
   up do
     create_table :pings do
       column :id, Integer, :serial => true

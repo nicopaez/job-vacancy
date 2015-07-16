@@ -5,13 +5,32 @@ Feature: Job Offers CRUD
 
   Background:
   	Given I am logged in as job offerer
-
-  Scenario: Create new offer
-    Given I access the new offer page
+    And I access the new offer page
     When I fill the title with "Programmer vacancy"
-		And confirm the new offer    
+    
+    
+  Scenario: Create new offer
+    And confirm the new offer    
     Then I should see "Offer created"
     And I should see "Programmer vacancy" in My Offers
+    And I should see 30 days plus actual day in expired date in My Offers
+
+  Scenario: Create new offer
+    When I fill the expired date with "12-12-2015"
+    And confirm the new offer    
+    Then I should see "12-12-2015" in expired date in My Offers
+
+  Scenario: Create new offer with salary option
+    And I check salary expectations
+    And confirm the new offer
+    And an applicant apply
+    Then I should see "Salary expectation"
+
+  Scenario: Create new offer without salary option
+    And I not check salary expectations
+    And confirm the new offer
+    And an applicant apply    
+    Then I should not see "Salary Expectation"
 
   Scenario: Update offer
     Given I have "Programmer vacancy" offer in My Offers
@@ -26,3 +45,24 @@ Feature: Job Offers CRUD
     Given I delete it
     Then I should see "Offer deleted"
     And I should not see "Programmer vacancy!!!" in My Offers
+
+  Scenario: Can't apply to my own offers
+    Given an offer with the title "Programmer vacancy" created by me
+    Given I access the job offers page
+    Then I shouldn't see the "Apply" button on offers I created
+
+  Scenario: I can apply to offers which are not mine
+    Given an offer with the title "Programmer vacancy"
+    Given I access the job offers page
+    Then I should see the "Apply" button on offers I created
+ 
+  Scenario: Check image it's seen and expiration date is highlighted in green
+    Given an active offer
+    Then expiration date is highlighted with green in the view
+    Then I should see a check image
+  
+  
+  Scenario: Cross image it's seen and expiration date is highlighted in red
+    Given an expired offer
+    Then expiration date is highlighted with red in the view
+    Then i should see a cross image

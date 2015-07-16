@@ -4,13 +4,16 @@
 		<th>Title</th>
 		<th>Location</th>
 		<th>Description</th>
+		<th>Expired Date</th>
+		<th>Visits</th>
 		<th>Is active</th>
+		<th>Applicants</th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
 
 	<tr>
-			<td>
+		<td>
 			<%= offer.title %>
 		</td>
 		<td>
@@ -18,10 +21,27 @@
 		</td>
 		<td>
 			<%= offer.description %>
+		</td>
+		<td>
+			<% if offer.expired_date < Date.today %>
+				<font color="red"><%= offer.expired_date%></font>
+			<%else%>
+					<font color="green"><%= offer.expired_date%></font>
+			<%end%>
+		</td>
+		<td>
+			<%= offer.visit_count %>
 		</td>		
 		<td>
-			<%= offer.is_active %>
-		</td>		
+			<% if offer.expired_date < Date.today %>
+				<div align="center"> <span class="icon-remove"></span></div>
+			<%else %>
+				<div align="center"><span class="icon-ok"></span></div>
+			<% end %>
+		</td>
+		<td>
+			<%= link_to 'Applicants', url_for(:job_offers, :applicants, :offer_id => offer.id), :class => "btn btn-primary" %>
+		</td>	
 
 		<td>
 			<%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
@@ -29,7 +49,7 @@
                 <button type='submit' title="Delete offer" rel='tooltip' class="btn btn-secondary" >Delete
                 </button>
        <% end %>
-       <% if not offer.is_active %>
+       <% if (not offer.is_active) %>
 				<%- form_tag url(:job_offers, :activate, :offer_id => offer.id), :method => :put, :style => 'display:inline' do %>
 	                <button type='submit' title="Activate offer" rel='tooltip' class="btn btn-secondary" >Activate
 	                </button>

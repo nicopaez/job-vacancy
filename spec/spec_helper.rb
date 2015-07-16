@@ -2,9 +2,9 @@ PADRINO_ENV = 'test' unless defined?(PADRINO_ENV)
 
 require 'simplecov'
 SimpleCov.start do
-	root(File.join(File.dirname(__FILE__), '..'))
-	coverage_dir 'reports/coverage'
-	add_filter '/spec/'
+  root(File.join(File.dirname(__FILE__), '..'))
+  coverage_dir 'reports/coverage'
+  add_filter '/spec/'
   add_filter '/features/'
   add_filter '/admin/'
   add_filter '/db/'
@@ -19,7 +19,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/boot")
 RSpec.configure do |conf|
   conf.include Rack::Test::Methods
   conf.include Capybara
-  DataMapper.setup(:default, "abstract::")
+  DataMapper.auto_migrate!
   DataMapper::Logger.new($stdout, :all)
 end
 
