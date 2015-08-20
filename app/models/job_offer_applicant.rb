@@ -8,8 +8,8 @@ class JobOfferApplicant
   property :last_name, String
   property :salary_expectations, Integer
   property :applicant_email, String
-  property :link_to_cv, String
-  property :offer_id, Integer
+  property :link_to_cv, String 
+  property :offer_id, Integer 
 
   validates_presence_of :name
   validates_presence_of :last_name
@@ -22,6 +22,10 @@ class JobOfferApplicant
 
   def offer=(job_offer)
     self.job_offer = job_offer
+  end
+
+  def self.find_by_offer(offer)
+    offers = JobOfferApplicant.all(:offer_id => offer)
   end
 
 end

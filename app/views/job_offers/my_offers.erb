@@ -6,6 +6,7 @@
 		<th>Description</th>
 		<th>Expired Date</th>
 		<th>Is active</th>
+		<th>Applicants</th>
 		<th>Actions</th>
 	</tr>
 	<% @offers.each do | offer| %>
@@ -29,7 +30,10 @@
 			<%else %>
 				<div align="center"><span class="icon-ok"></span></div>
 			<% end %>
-		</td>		
+		</td>
+		<td>
+			<%= link_to 'Applicants', url_for(:job_offers, :applicants, :offer_id => offer.id), :class => "btn btn-primary" %>
+		</td>	
 
 		<td>
 			<%= link_to 'Edit', url_for(:job_offers, :edit, :offer_id => offer.id), :class => "btn btn-primary" %>
