@@ -26,6 +26,11 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/edit'
   end
 
+  get :applicants, :with => :offer_id do
+    @applicants = JobOfferApplicant.find_by_offer(params[:offer_id])
+    render 'job_offers/applicants'
+  end
+
   get :apply, :with => :offer_id do
 
     @job_offer = JobOffer.get(params[:offer_id])
@@ -40,25 +45,31 @@ JobVacancy::App.controllers :job_offers do
     render 'job_offers/list'
   end
 
-
-  post :apply, :with => :offer_id do
+post :apply, :with => :offer_id do
     @job_offer = JobOffer.get(params[:offer_id])
 
     @job_offer_applicant = JobOfferApplicant.new(params[:job_offer_applicant])
 
-    applicant_name = params[:job_offer_applicant][:name]
-    applicant_last_name = params[:job_offer_applicant][:last_name]
     applicant_email = params[:job_offer_applicant][:applicant_email]
     @job_offer_applicant.offer_id = @job_offer.id
+    
+    if @job_offer_applicant.salary_expectations == ''
+      @job_offer_applicant.salary_expectations = -1
+    end
 
-    if applicant_email == '' || applicant_last_name == '' || applicant_name == ''
-      flash[:error] = "Complete mandatory fields"
-      redirect "job_offers/apply/" + params[:offer_id].to_s
-    else
+    if @job_offer_applicant.save
       @job_application = JobApplication.create_for(applicant_email, @job_offer)
       @job_application.process
       flash[:success] = 'Contact information sent.'
       redirect '/job_offers'
+    else
+     @job_offer_applicant.errors.keys.each do |key|
+      @job_offer_applicant.errors[key].each do |error|
+        puts "#{key} => #{error}"
+      end
+    end
+      flash[:error] = "Complete mandatory fields"
+      redirect "job_offers/apply/" + params[:offer_id].to_s
     end
 
   end
