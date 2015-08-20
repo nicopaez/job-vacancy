@@ -1,0 +1,32 @@
+<h1>Current Job Offers</h1>
+
+<table class="table table-bordered">
+	<tr>
+		<th>Name</th>
+		<th>Last Name</th>
+		<th>Email</th>
+		<th>Salary Expectations</th>
+	</tr>
+	<% @applicants.each do | applicant| %>
+
+	<tr>
+		<td>
+			<%= applicant.name %>
+		</td>
+		<td>
+			<%= applicant.last_name %>
+		</td>
+		<td>
+			<%= applicant.applicant_email %>
+		</td>
+		<td>
+			<%= if (applicant.salary_expectations != -1) 
+			  		applicant.salary_expectations
+			   end 
+			%>
+		</td>				
+	</tr>
+   <%end%>
+
+
+</table>
