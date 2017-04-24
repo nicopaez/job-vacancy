@@ -10,8 +10,9 @@ before_script:
 
 stages:
   - build
+  - deploytest
 
-job_build:
+build:
   stage: build
   script:
     - PADRINO_ENV=test bundle exec rake
